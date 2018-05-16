@@ -1,0 +1,21 @@
+#!/bin/sh
+set -ex
+
+# This shouldn't be in the Dockerfile or containers built from the same image
+# will have the same credentials.
+if [ ! -e "/home/dash/.dashcore/dash.conf" ];
+then
+    mkdir -p /home/dash/.dashcore
+
+    echo "Creating dash.conf"
+
+    # Seed a random password for JSON RPC server
+    cat <<EOF > /home/dash/.dashcore/dash.conf
+rpcuser=${RPCUSER:-dashrpc}
+rpcpassword=${RPCPASSWORD:-`dd if=/dev/urandom bs=33 count=1 2>/dev/null | base64`}
+EOF
+    cat /home/dash/.dashcore/dash.conf
+
+fi
+
+exec "$@"

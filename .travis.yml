@@ -1,0 +1,18 @@
+language: java
+jdk:
+  - oraclejdk8
+  - oraclejdk9
+  - openjdk8
+sudo: required
+services:
+  - docker
+
+cache:
+  directories:
+    - $HOME/.m2/
+
+before_install:
+  - docker pull coinbub/dash-daemon
+
+script:
+  - mvn test jacoco:report coveralls:report -B -DcontainerLocation=localhost:10001
