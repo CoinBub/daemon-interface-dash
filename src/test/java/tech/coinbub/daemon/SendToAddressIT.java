@@ -20,7 +20,7 @@ import static tech.coinbub.daemon.testutils.BeanPropertyMatcher.property;
 import tech.coinbub.daemon.testutils.Dockerized;
 
 @ExtendWith(Dockerized.class)
-public class TestSendToAddress {
+public class SendToAddressIT {
     public static final String VALID_ADDRESS = "yN813x8DrZh5aJXZfaja9xm1kZv7fGsSWw";
     @Test
     public void throwsErrorOnInvalidAddress(final Dash dash) {

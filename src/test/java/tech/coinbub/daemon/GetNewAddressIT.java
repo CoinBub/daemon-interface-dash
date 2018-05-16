@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import tech.coinbub.daemon.testutils.Dockerized;
 
 @ExtendWith(Dockerized.class)
-public class TestGetNewAddress {
+public class GetNewAddressIT {
     @Test
     public void canGetAddressForDefaultAccount(final Dash dash) {
         final String address = dash.getnewaddress();

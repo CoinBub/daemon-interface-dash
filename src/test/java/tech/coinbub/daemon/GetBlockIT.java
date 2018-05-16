@@ -13,7 +13,7 @@ import static tech.coinbub.daemon.testutils.BeanPropertyMatcher.property;
 import tech.coinbub.daemon.testutils.Dockerized;
 
 @ExtendWith(Dockerized.class)
-public class TestGetBlock {
+public class GetBlockIT {
     @Test
     public void canGetBlock(final Dash dash) {
         final Block block = dash.getblock("5cb4c105b64565280ff8ab64fc5fa126f45eea06954e4efa105bb912e3a7d098");
