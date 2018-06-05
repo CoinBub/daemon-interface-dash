@@ -14,5 +14,8 @@ cache:
 before_install:
   - docker pull coinbub/dash-daemon
 
+install:
+  - mvn dependency:go-offline
+
 script:
-  - mvn test jacoco:report coveralls:report -B -DcontainerLocation=localhost:10001
+  - mvn test jacoco:report coveralls:report -B
