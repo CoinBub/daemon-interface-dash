@@ -1,7 +1,5 @@
 language: java
 jdk:
-  - oraclejdk8
-  - oraclejdk9
   - openjdk8
 sudo: required
 services:
@@ -21,23 +19,11 @@ install:
   - docker pull coinbub/dash-daemon
   - mvn dependency:go-offline
 
+before_script:
+  - ./cc-test-reporter before-build
+
 script:
   - mvn test jacoco:report -B
 
 after_script:
-  - JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage target/site/jacoco/jacoco.xml --input-type jacoco --output "coverage/codeclimate.$TRAVIS_BUILD_ID.json"
-  - aws s3 sync coverage/ "$COVERAGE_BUCKET"
-
-jobs:
-  include:
-    - stage: deploy
-      before_install:
-        - pip install --user awscli
-        - export PATH=$PATH:$HOME/.local/bin
-        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        - chmod +x ./cc-test-reporter
-      script:
-        - aws s3 sync "$COVERAGE_BUCKET" coverage/
-        - ./cc-test-reporter sum-coverage --output - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --input -
-      after_script:
-        - aws s3 rm --recursive "$COVERAGE_BUCKET"
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
