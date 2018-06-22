@@ -6,7 +6,10 @@ ADD https://github.com/dashpay/dash/releases/download/v0.12.2.3/dashcore-0.12.2.
 
 RUN tar -xvf /tmp/dashcore-*.tar.gz -C /tmp/ \
  && cp /tmp/dashcore*/bin/*  /usr/local/bin \
- && rm -rf /tmp/dashcore*
+ && rm -rf /tmp/dashcore* \
+ && apt-get -y update \
+ && apt-get -y install iproute2 \
+                       netcat
 
 #ADD ./bin /usr/local/bin
 #RUN chmod a+x /usr/local/bin/*
@@ -20,4 +23,5 @@ WORKDIR /home/dash
 
 RUN mkdir -p /home/dash/.dashcore
 
+ENTRYPOINT [ "/usr/local/bin/entrypoint" ]
 CMD ["dashd", "-printtoconsole"]
