@@ -15,6 +15,11 @@ public class NormalizedDash implements Normalized<Dash> {
     }
 
     @Override
+    public String getSymbol() {
+        return Dash.SYMBOL;
+    }
+
+    @Override
     public String getblockhash(final Long height) {
         return client.getblockhash(height);
     }

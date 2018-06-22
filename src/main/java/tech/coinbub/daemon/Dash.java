@@ -142,6 +142,7 @@ import tech.coinbub.daemon.dash.Transaction;
  * signmessage "dashaddress" "message"
  */
 public interface Dash {
+    public static final String SYMBOL = "DASH";
     /**
      * `getnewaddress ( "account" )`
      * 
