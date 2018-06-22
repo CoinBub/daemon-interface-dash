@@ -81,16 +81,16 @@ public class NormalizedDash implements Normalized<Dash> {
         result.comment_from = tx.comment;
         result.comment_to = tx.to;
 
-        if (!tx.details.isEmpty()) {
+        if (tx.details != null && !tx.details.isEmpty()) {
             result.details = new ArrayList<>();
-        }
-        for (TransactionDetail rawDetail : tx.details) {
-            final tech.coinbub.daemon.normalization.model.TransactionDetail detail
-                    = new tech.coinbub.daemon.normalization.model.TransactionDetail();
-            detail.address = rawDetail.address;
-            detail.amount = rawDetail.amount;
-            detail.fee = rawDetail.fee;
-            result.details.add(detail);
+            for (TransactionDetail rawDetail : tx.details) {
+                final tech.coinbub.daemon.normalization.model.TransactionDetail detail
+                        = new tech.coinbub.daemon.normalization.model.TransactionDetail();
+                detail.address = rawDetail.address;
+                detail.amount = rawDetail.amount;
+                detail.fee = rawDetail.fee;
+                result.details.add(detail);
+            }
         }
 
         return result;
